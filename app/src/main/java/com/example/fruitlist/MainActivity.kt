@@ -5,19 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.recyclerview.widget.RecyclerView
 
 
-class MainActivity : AppCompatActivity() {
+
+
+class MainActivity : AppCompatActivity(), ListAdapter.onItemClickListener {
+    private val premadeList =  PreList(15)
+    private val adapter = ListAdapter(premadeList, this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val premadeList =  PreList(10)
 
-        recycler_view.adapter = ListAdapter(exampleList)
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.setHasFixedSize(true)
+
+
+        findViewById<RecyclerView>(R.id.fruitlist).adapter = adapter
+        findViewById<RecyclerView>(R.id.fruitlist).layoutManager = LinearLayoutManager(this)
+        findViewById<RecyclerView>(R.id.fruitlist).setHasFixedSize(true)
 
 
     }
@@ -27,18 +33,25 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until size) {
             val drawable = when (i % 3 ) {
                 0 -> R.drawable.apple
-                1 -> R.drawable.carot
-                else -> R.drawable.watermelon
+                1 -> R.drawable.banana
+                else -> R.drawable.carot
             }
-            val item = ExampleItem(drawable, "Item $i", "description")
+            val item = ExampleItem(drawable, "Fruta: $i", "Descrição da fruta")
             list += item
         }
         return list
     }
 
+    override fun onItemClick(position: Int) {
+        val DetailsActivity = Intent (this, DetailsActivity::class.java)
+        startActivity(DetailsActivity)
+
+    }
 
     fun handleOnClickEvent(view: View) {
         val SecondActivity = Intent (this, SecondActivity::class.java)
         startActivity(SecondActivity)
     }
+
+    fun handleOnClicklistener(view: View) {}
 }
