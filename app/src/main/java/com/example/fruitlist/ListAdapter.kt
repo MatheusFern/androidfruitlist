@@ -35,6 +35,8 @@ class ListAdapter(
         fun onItemClick(position: Int)
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item,
         parent, false)

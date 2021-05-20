@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity(), ListAdapter.onItemClickListener {
+
+
     private val premadeList =  PreList(15)
     private val adapter = ListAdapter(premadeList, this)
 
@@ -18,15 +20,14 @@ class MainActivity : AppCompatActivity(), ListAdapter.onItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-
         findViewById<RecyclerView>(R.id.fruitlist).adapter = adapter
         findViewById<RecyclerView>(R.id.fruitlist).layoutManager = LinearLayoutManager(this)
         findViewById<RecyclerView>(R.id.fruitlist).setHasFixedSize(true)
 
 
     }
+
+
 
     private fun PreList(size: Int): List<ExampleItem> {
         val list = ArrayList<ExampleItem>()
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity(), ListAdapter.onItemClickListener {
 
     override fun onItemClick(position: Int) {
         val DetailsActivity = Intent (this, DetailsActivity::class.java)
+        DetailsActivity.putExtra("Title",premadeList[position].text1)
+        DetailsActivity.putExtra("Desc",premadeList[position].text2)
+        DetailsActivity.putExtra("Image",premadeList[position].imageResource.toString())
         startActivity(DetailsActivity)
 
     }
@@ -53,5 +57,5 @@ class MainActivity : AppCompatActivity(), ListAdapter.onItemClickListener {
         startActivity(SecondActivity)
     }
 
-    fun handleOnClicklistener(view: View) {}
+
 }
